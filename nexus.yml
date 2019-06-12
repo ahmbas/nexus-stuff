@@ -1,0 +1,31 @@
+- hosts: all
+  vars:
+    ansible_ssh_user: vagrant
+    ansible_port: 2222
+    ansible_connection: network_cli
+    ansible_network_os: nxos
+    vlans:
+    - id: 10
+      name: web_servers
+    - id: 20
+      name: app_servers
+    - id: 30
+      name: db_servers
+  tasks:
+  - name: BUILD CONFIGS
+    template:
+      src: vlans.j2
+      dest: vlans.cfg
+  - name: ENSURE VLANS EXIST
+    nxos_config:
+      src: vlans.cfg
+  - name: configure top level configuration and save it
+    nxos_config:
+      lines: hostname superswitch
+      save_when: modified
+  - name: Backup current switch config (nxos)
+    nxos_config:
+      backup: yes
+    register: backup_nxos_location
+
+
