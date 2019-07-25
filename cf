@@ -1,0 +1,21 @@
+Input
+fields:
+  - type: string
+    id: cfme_endpoint
+    label: CFME Endpoint
+  - type: string
+    id: cfme_user
+    label: CFME User
+  - secret: true
+    type: string
+    id: cfme_password
+    label: CFME Password
+required:
+  - cfme_endpoint
+  - cfme_user
+  - cfme_password
+Injector
+env:
+  CFME_ENDPOINT: '{{ cfme_endpoint }}'
+  CFME_PASSWORD: '{{ cfme_password }}'
+  CFME_USER: '{{ cfme_user }}'
