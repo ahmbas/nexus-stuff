@@ -1,0 +1,9 @@
+- hosts: all
+  vars:
+    vlan_id: 100
+    inter_name: "GigabitEthernet1"
+  tasks:
+    - name: Delete VLAN
+      ios_config:
+        lines:
+          - "no interface {{inter_name}}.{{vlan_id}}" 

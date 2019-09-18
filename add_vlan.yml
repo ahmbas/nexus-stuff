@@ -1,0 +1,13 @@
+- hosts: all
+  vars:
+    vlan_id: 100
+    inter_name: "GigabitEthernet0"
+    vlan_ip: 10.1.2.3
+    vlan_mask: 255.255.255.0
+  tasks:
+    - name: Configure VLAN ID
+      ios_config:
+        lines:
+         - "interface {{inter_name}}/0.{{vlan_id}}"
+         - "encapsulation dot1q {{vlan_id}}"
+         - "ip address {{vlan_ip}} {{vlan_mask}}"
